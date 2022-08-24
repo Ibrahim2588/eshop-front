@@ -1,0 +1,35 @@
+{
+  "name": "shop",
+  "version": "1.0.0",
+  "description": "eshop project",
+  "source": "index.html",
+  "homepage": "https://Ibrahim2588.github.io/eshop-react.git",
+  "scripts": {
+    "start": "npx parcel",
+    "build": "parcel build --public-url ./ ./index.html --dist-dir build",
+    "deploy": "gh-pages -d dist"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@chakra-ui/icons": "^2.0.4",
+    "@chakra-ui/react": "^2.2.4",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@heroicons/react": "^1.0.6",
+    "@reduxjs/toolkit": "^1.8.3",
+    "framer-motion": "^6.5.1",
+    "react": "^18.2.0",
+    "react-cookie": "^4.1.1",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.4.0",
+    "react-redux": "^8.0.2",
+    "react-responsive-carousel": "^3.2.23",
+    "react-router-dom": "6"
+  },
+  "devDependencies": {
+    "gh-pages": "^4.0.0",
+    "parcel": "^2.6.2",
+    "process": "^0.11.10"
+  }
+}
