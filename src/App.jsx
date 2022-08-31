@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 
-import { Box, Button, Container, Grid, Spinner } from "@chakra-ui/react";
+import { Box, Button, Container, Divider, Grid, Spinner } from "@chakra-ui/react";
 
 
 import { useGetAllProductsQuery, useGetOrdersQuery } from "./api/store.api";
@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { setAllOrders } from "./store/orderSlice/order.slice";
 import { useGetAuthTokenMutation, useGetProfileQuery } from "./api/user.api";
 import { setAuthToken, setProfile } from "./store/userSlice/user.slice";
+import Footer from "./components/Footer/Footer";
 
 
 const orderGet = ()=> {
@@ -27,6 +28,7 @@ const orderGet = ()=> {
         isLoading,
         isError,
         error,
+        status,
         refetch,
     } = useGetOrdersQuery()
 
@@ -87,7 +89,7 @@ export const App = React.memo(()=> {
         if(cookies.authToken!==undefined){
             dispatch(setAuthToken(cookies.authToken))
         } else {
-            navigate('/account/login')
+            // navigate('/account/login')
         }
     }, [cookies])
 
@@ -99,12 +101,11 @@ export const App = React.memo(()=> {
 
     return (
         <>
-            <Box>
+            <Box bgColor='gray.50'>
                 <AppBar />
                 <Router />
+                <Footer />
             </Box>
-
-            <h1>{screen.width}-{screen.height}</h1>
         </>
     )
 })

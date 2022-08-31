@@ -6,6 +6,7 @@ import { SearchProducts } from "../components/SearchProducts/SearchProducts";
 import { Login } from "./Account/Login/Login";
 import { Signup } from "./Account/Signup/Signup";
 import { CartPage } from "./CartPage/CartPage";
+import Contact from "./Contact/Contact";
 
 import { HomePage } from "./HomePage/HomePage";
 import ProductDetailPage from "./ProductDetail/ProductDetailPage";
@@ -25,6 +26,7 @@ const Router = React.memo(()=> {
             {/* <Route path="/panier" element={<CartPage />}  /> */}
 
             <Route path="/aceuil" element={<HomePage />}  />
+            <Route path="/contact" element={<Contact />}  />
 
 
             <Route path="/account/login" element={<Login />} />

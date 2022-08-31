@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Box, Button, Center, FormControl, FormLabel, Heading, Input, VStack } from '@chakra-ui/react'
+import { Box, Button, Center, Checkbox, Flex, FormControl, FormLabel, Heading, Input, Link, Stack, Text, useColorModeValue, VStack } from '@chakra-ui/react'
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthToken } from "../../../store/userSlice/user.slice";
 import { useGetOrdersQuery } from "../../../api/store.api";
@@ -13,6 +13,8 @@ export const Login = ()=> {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    const isAuthenticated = useSelector(state=> state.user.isAuthenticated)
 
     const [cookies, setCookie, removeCookie] = useCookies('authToken')
 
@@ -28,20 +30,23 @@ export const Login = ()=> {
         }] = useLoginMutation()
 
     useEffect(()=> {
-        if(authToken!==null & isSuccess===true){
-            
+        if(authToken!==undefined & isSuccess){
+
             let expireDate = new Date()
             const month = expireDate.getMonth()
             expireDate.setMonth(month==11? 0 : month+1)
 
             dispatch(setAuthToken(authToken.key))
-            removeCookie('authToken')
-            setCookie('authToken', authToken.key, {
-                path: '/',
-                expires: expireDate
-            })
+            // removeCookie('authToken')
+            // setCookie('authToken', authToken.key, {
+            //     path: '/',
+            //     expires: expireDate
+            // })
+
+            navigate('/')
+
         }
-    }, [isSuccess, authToken])
+    }, [isSuccess, authToken, ])
 
     
     const handleChangeEmail = (event)=> {
@@ -56,29 +61,72 @@ export const Login = ()=> {
     const onSubmit = (event)=> {
         event.preventDefault()
         login({email: email, password: password})
-        navigate('/')
     }
 
 
 
+    if(isAuthenticated){
+        console.log(isAuthenticated)
+        return (
+            <Box>
+                <Text align='center' fontSize='4xl' fontWeight='bold'>Attention vous ête déjà connecter</Text>
+            </Box>
+        )
+    }
+
     return (
         
-        <Box bgColor='pink.300' height='full'>
-            <Center padding={12} paddingBottom='96'>
-                <Box>
-                    <VStack shadow='xs' width={['250px', 'xs', 'md']} bgColor='red.200' padding='4' rounded={'lg'} >
-                        <FormControl>
-                            <FormLabel>Email: </FormLabel>
-                            <Input size={['sm', 'md', 'lg',]} type='email' onChange={handleChangeEmail} value={email} />
+
+        <Flex
+        minH={'100vh'}
+        align={'center'}
+        justify={'center'}
+        bg='gray.50'>
+            <Stack spacing={4} mx={'auto'} maxW={'lg'} py={12} px={6}>
+                <Stack align={'center'}>
+                    <Heading fontSize={'4xl'}>Se connecter </Heading>
+                </Stack>
+                <Box
+                    rounded={'lg'}
+                    bg='white'
+                    boxShadow={'lg'}
+                    p={8}>
+
+                    <Stack spacing={4}>
+
+                        <FormControl id="email" isRequired>
+                            <FormLabel>Email address</FormLabel>
+                            <Input type="email" onChange={handleChangeEmail} value={email} />
                         </FormControl>
-                        <FormControl>
-                            <FormLabel>Password: </FormLabel>
-                            <Input size={['sm', 'md', 'lg',]} type='password' onChange={handleChangePassword} value={password} />
+                        
+                        <FormControl id="password" isRequired>
+                            <FormLabel>Password</FormLabel>
+                            <Input type="password" onChange={handleChangePassword} value={password} />
                         </FormControl>
-                    <Button  colorScheme={'twitter'} onClick={onSubmit}>Login</Button>
-                    </VStack>
+                        
+                        <Stack spacing={10}>
+                        
+                        <Stack
+                            direction={{ base: 'column', sm: 'row' }}
+                            align={'start'}
+                            justify={'space-between'}>
+                            <Checkbox>Remember me</Checkbox>
+                            <Link color={'blue.400'}>Forgot password?</Link>
+                        </Stack>
+                        <Button
+                            onClick={onSubmit}
+                            bg={'blue.400'}
+                            color={'white'}
+                            _hover={{
+                            bg: 'blue.500',
+                            }}>
+                            Sign in
+                        </Button>
+                        </Stack>
+                    </Stack>
                 </Box>
-            </Center>
-        </Box>
+            </Stack>
+    </Flex>
+
     )
 }

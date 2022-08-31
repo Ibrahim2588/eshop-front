@@ -8,8 +8,9 @@ import { useGetBestProductsQuery, useGetCategoriesQuery, useGetRecomendedProduct
 import Product from "../../components/Product/Product";
 
 
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 
 export const StorePage = ()=> {
@@ -45,22 +46,16 @@ const Head = React.memo(({})=> {
                     <Text fontSize={'4xl'} fontWeight='bold' bgClip={'text'} bgGradient='linear(to-r, green.200, pink.500)'>Bienvenue</Text>
                 </Box>
                 <Box width={'full'}  justifyContent='center' alignContent='center'>
-                    <Box width={'250px'} height='' margin='auto' shadow='xs' >
-                        <Carousel  autoPlay={true} infiniteLoop={true} interval={3000}>
+                    <Box width={'250px'} height='auto' margin='auto' shadow='xs' >
+                        <Slider  dots infinite autoplay autoplaySpeed={5000} speed={500} slidesToShow={1} >
                             {bestProducts.map((product)=> {
                                 return (
-                                    <Box key={product.id}>
+                                    <Box key={product.id} onClick={()=> navigate(`/product/${product.id}`)}>
                                         <Image src={product.main_image} />
-                                        <Text position='relative' bottom='52' fontSize='xl' fontWeight='semibold'  >{product.title}</Text>
-                                        <Button 
-                                        colorScheme='orange' 
-                                        variant='outline'
-                                        onClick={()=> navigate(`/product/${product.id}`)} 
-                                        position='relative' bottom='20' size='sm'>Voir</Button>
                                     </Box>
                                 )
                             })}
-                        </Carousel>
+                        </Slider>
                     </Box>
                 </Box>
             </Box>

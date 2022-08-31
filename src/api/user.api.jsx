@@ -28,6 +28,30 @@ export const userApi = createApi({
             
         }),
 
+        register: builder.mutation({
+            query: ({email, password1, password2})=> ({
+                url: `registration/`,
+                method: 'POST',
+                body: {
+                    email: email,
+                    password1: password1,
+                    password2: password2,
+                }
+            })
+        }),
+
+        profileUpdate: builder.mutation({
+            query: ({firstName, lastName})=> ({
+                url: `user/`,
+                method: 'PUT',
+                body: {
+                    first_name: firstName,
+                    last_name: lastName,
+                }
+            })
+        }),
+
+
         getProfile: builder.query({
             query: ()=> `user/`
         }),
@@ -41,4 +65,6 @@ export const userApi = createApi({
 export const {
     useLoginMutation,
     useGetProfileQuery,
+    useRegisterMutation,
+    useProfileUpdateMutation,
 } = userApi

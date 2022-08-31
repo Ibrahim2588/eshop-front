@@ -5,17 +5,17 @@ import { AddIcon, MinusIcon } from "@chakra-ui/icons"
 
 
 const sm = {
-    inputWidth: '40px',
+    inputWidth: '50px',
     inputHeigth: '24px',
     buttonSize: 'xs'
 }
 const md = {
-    inputWidth: '40px',
+    inputWidth: '50px',
     inputHeigth: '32px',
     buttonSize: 'sm'
 }
 const lg = {
-    inputWidth: '60px',
+    inputWidth: '65px',
     inputHeigth: '40px',
     buttonSize: 'md'
 }
