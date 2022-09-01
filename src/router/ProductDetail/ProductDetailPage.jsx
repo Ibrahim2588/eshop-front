@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 
-import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Center, Collapse, Heading, Hide, HStack, IconButton, Image, Input, List, ListItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, NumberInput, NumberInputField, Show, SimpleGrid, Skeleton, Spacer, StackDivider, Table, TableContainer, Tabs, Tbody, Td, Text, Th, Thead, Tr, useDisclosure, useNumberInput, VStack } from '@chakra-ui/react'
+import { Box, Button, Center, Collapse, HStack, Image, List, ListItem, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, SimpleGrid, Skeleton, StackDivider, Text, useDisclosure, VStack } from '@chakra-ui/react'
 import { useNavigate, useParams } from "react-router-dom";
 import { useCreateOrderMutation, useGetProductQuery } from "../../api/store.api";
 import { AddIcon, ChevronDownIcon, ChevronUpIcon, RepeatIcon } from "@chakra-ui/icons";
@@ -24,7 +24,7 @@ function formatPrice(n) {
 }
 
 
-export default ProductDetailPage = ()=> {
+export const ProductDetailPage = ()=> {
 
     const navigate = useNavigate()
 
@@ -32,7 +32,6 @@ export default ProductDetailPage = ()=> {
 
     const {productId} = useParams()
 
-    // const [product, setProduct] = useState(null) 
 
     const {
         data: product,
@@ -75,12 +74,12 @@ export default ProductDetailPage = ()=> {
         return (
             <Box>
                 <SearchBar />
-                <Box paddingX={6}>
+                <Box paddingX={2}>
                     <SimpleGrid columns={{base: 1, md: 2}} marginTop={4} >
                         <Box>
                             <ProductImages mainImageLink={product.main_image} images={product.images} />
                         </Box>
-                        <VStack paddingX={4} divider={<StackDivider  borderColor='gray.200' />}  >
+                        <VStack paddingX={2} divider={<StackDivider  borderColor='gray.200' />}  >
                             <Title title={product.title} price={product.current_price} />
                             <PurchaseAction product={product} />
                             <Description  description={product.description} />
@@ -121,7 +120,7 @@ const ProductImages = React.memo(({mainImageLink, images})=> {
 
     const [currentImage, setCurrentImage] = useState(0)
 
-    const Images = useMemo(()=> {
+    let Images = useMemo(()=> {
         let list = []
         list.push(<Image  shadow={'xs'} rounded='lg' src={mainImageLink} />)
         images.map((image)=> {
@@ -156,24 +155,13 @@ const ProductImages = React.memo(({mainImageLink, images})=> {
 
 const Description = ({description})=> {
 
-    const { isOpen, onToggle, onOpen } = useDisclosure()
-    const ChevronSise = 'md'
-
-    useEffect(()=> {
-        onOpen()
-    }, [])
-
     return (
         <Box>
             <Text  fontSize={{ base: '16px', lg: '18px' }} color='yellow.500' fontWeight={'500'} textTransform={'uppercase'} mb={'4'} >Description</Text>
-            <Box>
-                <Collapse in={isOpen}>
-                    <Text 
-                      fontSize={{base: 'md', md: 'lg', lg: 'xl'}}
-                      paddingLeft={2}
-                      
-                      >{description}</Text>
-                </Collapse>
+            <Box paddingLeft={4}>
+                <Text 
+                    fontSize={{base: 'md', md: 'lg', lg: 'xl'}}                    
+                    >{description}</Text>
             </Box>
         </Box>
     )
@@ -182,30 +170,23 @@ const Description = ({description})=> {
 
 const Characteristics = ({characteristics})=> {
 
-    const { isOpen, onToggle, onOpen } = useDisclosure()
-
-    useEffect(()=> {
-        onOpen()
-    }, [])
-
+    
     return (
         <Box marginY={4}>
             <Text  fontSize={{ base: '16px', lg: '18px' }} color='yellow.500' fontWeight={'500'} textTransform={'uppercase'} mb={'4'} >Characteristics</Text>
-            <Box>
-                <Collapse in={isOpen}>
-                    <List spacing={2}>
-                        {characteristics.map((characteristic)=> {
-                            return (
-                                <ListItem>
-                                    <Text as={'span'} fontSize={'md'} fontWeight={'bold'}>
-                                    {characteristic.title}:
-                                    </Text>{' '} {characteristic.value}
-                                </ListItem>
-                            )
-                        })}
-                      
-                    </List>
-                </Collapse>
+            <Box paddingLeft={4}>
+                <List spacing={2}>
+                    {characteristics.map((characteristic)=> {
+                        return (
+                            <ListItem>
+                                <Text as={'span'} fontSize={'md'} fontWeight={'bold'}>
+                                {characteristic.title}:
+                                </Text>{' '} {characteristic.value}
+                            </ListItem>
+                        )
+                    })}
+                    
+                </List>
             </Box>
         </Box>
     )

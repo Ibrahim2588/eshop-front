@@ -67,7 +67,7 @@ const colors = {
 //   }
 
 
-textStyles= {
+const textStyles= {
     h1: {
         // you can also use responsive styles
         fontSize: '48px',

@@ -66,10 +66,19 @@ export const Login = ()=> {
 
 
     if(isAuthenticated){
-        console.log(isAuthenticated)
         return (
             <Box>
-                <Text align='center' fontSize='4xl' fontWeight='bold'>Attention vous ête déjà connecter</Text>
+                
+            </Box>
+        )
+    }
+
+    if(isError){
+        console.log('erreur', error)
+        return (
+            <Box>
+                <Heading>Error: </Heading>
+                <Text align='center' fontSize='xl' fontWeight='bold'>Attention vous ête déjà connecter.</Text>
             </Box>
         )
     }
@@ -115,6 +124,7 @@ export const Login = ()=> {
                         </Stack>
                         <Button
                             onClick={onSubmit}
+                            isLoading={isLoading}
                             bg={'blue.400'}
                             color={'white'}
                             _hover={{

@@ -2,7 +2,7 @@ import React from "react";
 
 import { Box, Center, Heading, SimpleGrid, Text } from '@chakra-ui/react'
 import { useSearchProductsQuery } from "../../api/store.api";
-import Product from "../Product/Product";
+import {Product} from "../Product/Product";
 
 
 

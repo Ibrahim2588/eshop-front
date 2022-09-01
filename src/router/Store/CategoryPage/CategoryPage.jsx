@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 import { useGetProductsCategoryQuery } from "../../../api/store.api";
 import { AddIcon, ChevronLeftIcon, ChevronRightIcon, InfoIcon } from "@chakra-ui/icons";
-import Product from "../../../components/Product/Product";
+import {Product} from "../../../components/Product/Product";
 import { SearchBar } from "../../../components/SearchBar/SearchBar";
 
 

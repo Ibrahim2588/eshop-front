@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import { Avatar, Box, Button, Collapse, Divider, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Heading, HStack, IconButton, Link, Text, useDisclosure, VStack } from '@chakra-ui/react'
+import { Avatar, Box, Button, Collapse, Divider, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Heading, HStack, IconButton, Link, StackDivider, Text, useDisclosure, VStack } from '@chakra-ui/react'
 import { AddIcon, ChevronDownIcon, ChevronUpIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Link as Navigation } from 'react-router-dom'
 import { MenuIcon } from '@heroicons/react/solid'
@@ -28,18 +28,25 @@ export const DrawerNav = ()=> {
                 <DrawerContent>
                     <DrawerCloseButton color={'red.600'} border='2px' />
 
-                    <DrawerHeader bgColor='yellow.800'>
-                        {isAuthenticated? 
-                        <Head /> : null }
+                    
+                    <DrawerHeader hidden={!isAuthenticated} bgColor='yellow.800'>
+                         
+                        <Head />
                         
                     </DrawerHeader>
 
-                    <DrawerBody bgColor='blackAlpha.100'>
-                        <Button variant='link' size='lg' fontSize='2xl' colorScheme='orange' as={Navigation} to='/aceuil' onClick={onClose}>Aceuil</Button>
-                        
-                        <Divider height={4} color='black' variant='solid' />
-                        
-                        <Navigations onCloseDrawer={onClose} />
+                    <DrawerBody bgColor='gray.100'>
+                        <VStack  align='start'  divider={<StackDivider height={1} marginY={2} bgColor='black' /> }>
+
+                            <Button variant='link' size='lg' fontSize='2xl' color='gray.600' as={Navigation} to='/aceuil' onClick={onClose}>Aceuil</Button>
+                            
+                            
+                            <Navigations onCloseDrawer={onClose} />
+
+
+                            <Button variant='link' size='lg' fontSize='2xl' color='gray.600' as={Navigation} to='/about' onClick={onClose}>A propos</Button>
+                        </VStack>
+
                     </DrawerBody>
 
                     <DrawerFooter></DrawerFooter>
@@ -59,24 +66,19 @@ const Navigations = React.memo(({onCloseDrawer})=> {
         isSuccess
     } = useGetCategoriesQuery()
 
-    const {isOpen, onOpen, onClose, onToggle} = useDisclosure()
-
-
     return (
         <Box>
             <Box>
-                <Button size='lg' fontSize='2xl' onClick={onToggle} variant='link' colorScheme='orange' rightIcon={isOpen? <ChevronUpIcon /> : <ChevronDownIcon />} >Categories</Button>
-                <Collapse in={isOpen} animateOpacity >
-                    <VStack align='start' paddingLeft={8} paddingTop={1}>
-                        {isSuccess?
-                            categories.map((category)=> {
-                                return <Button variant='link' size='lg' fontSize='xl' marginY={1} key={category.value} as={Navigation} to={`/categorie/${category.value}`} colorScheme='orange' onClick={onCloseDrawer} >{category.title}</Button>
-                            })
-                        :
-                            null
-                        }
-                    </VStack>
-                </Collapse>
+                <Button variant='link' size='lg' fontSize='2xl' color='gray.600' >Categories</Button>
+                <VStack align='start' paddingLeft={4} paddingTop={1}>
+                    {isSuccess?
+                        categories.map((category)=> {
+                            return <Button variant='link' size='lg' fontSize='xl' color='gray.600' marginY={1} key={category.value} as={Navigation} to={`/categorie/${category.value}`}  onClick={onCloseDrawer} >{category.title}</Button>
+                        })
+                    :
+                        null
+                    }
+                </VStack>
             </Box>
         </Box>
     )
@@ -87,18 +89,24 @@ const Navigations = React.memo(({onCloseDrawer})=> {
 const Head = React.memo(()=> {
 
     const profile = useSelector(state=> state.user.profile)
-
+    
+    
     const fullName = useMemo(()=> {
-        return `${profile.first_name} ${profile.last_name}`
-    })
+        if(profile)
+            return `${profile.first_name} ${profile.last_name}`
+        else
+            return ''
+    }, [profile])
 
-    return (
-        <HStack >
-            <Avatar size='md' name={fullName} src={profile.image} />
-            <Box alignSelf='start'>
-                <Text color='whiteAlpha.800'>{fullName}</Text>
-                <Text fontSize='sm' fontWeight='normal' color='whiteAlpha.800' >{profile.email}</Text>
-            </Box>
-        </HStack>
-    )
+    if(profile){
+        return (
+            <HStack >
+                <Avatar size='md' name={fullName} src={profile.image} />
+                <Box alignSelf='start'>
+                    <Text color='whiteAlpha.800'>{fullName}</Text>
+                    <Text fontSize='sm' fontWeight='normal' color='whiteAlpha.800' >{profile.email}</Text>
+                </Box>
+            </HStack>
+        )
+    }
 })

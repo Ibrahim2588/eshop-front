@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { setAllOrders } from "./store/orderSlice/order.slice";
 import { useGetAuthTokenMutation, useGetProfileQuery } from "./api/user.api";
 import { setAuthToken, setProfile } from "./store/userSlice/user.slice";
-import Footer from "./components/Footer/Footer";
+import { Footer } from "./components/Footer/Footer";
 
 
 const orderGet = ()=> {

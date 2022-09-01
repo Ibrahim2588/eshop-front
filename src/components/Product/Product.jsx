@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Badge, Box, Container, Divider, Flex, Heading, HStack, IconButton, Image, Img, Spacer, Text, useBoolean, VStack } from "@chakra-ui/react";
+import React from "react";
+import { Badge, Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -27,7 +27,7 @@ const ProductLarge = ({product})=> {
     }
 
     return (
-        <Box onClick={handleBoxClick} boxShadow={'base'} _hover={{boxShadow: 'lg'}} borderColor={'black'} >
+        <Box onClick={handleBoxClick} boxShadow={'base'} _hover={{boxShadow: 'lg'}} borderColor={'black'} bgColor='white' >
             {product.disccount? <Badge pos={'absolute'} bgColor={'green.300'} color={'white'} >promo</Badge> : null}
             <HStack w={{base: '320px', xl: '400px'}} h={{base: '140px', xl: '170px'}}>
                 <Box width='70%' height='full' >
@@ -68,7 +68,7 @@ const ProductThin = ({product})=> {
 
     return (
         
-        <Box onClick={handleBoxClick} width={{base: '140px', sm: '160px', md: '180px'}} height={{base: '210px', sm: '230px', md: '250px'}} paddingBottom={2} rounded='lg' shadow='base'> 
+        <Box onClick={handleBoxClick} width={{base: '140px', sm: '160px', md: '180px'}} height={{base: '210px', sm: '230px', md: '250px'}} paddingBottom={2} rounded='lg' bgColor='white' shadow='base'> 
             {/* {product.disccount? <Badge pos={'absolute'} bgColor={'green.300'} color={'white'} >-{product.reduction}%</Badge> : null} */}
             <Box width='full' height='70%' >
                 <Image w='full' h='full' roundedTop='lg'  src={product.main_image} fallbackSrc='https://via.placeholder.com/150' />
@@ -88,7 +88,7 @@ const ProductThin = ({product})=> {
 
 // export default Product
 
-export default Product = {
+export const Product = {
     Large: ProductLarge,
     Thin: ProductThin,
 }
