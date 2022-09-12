@@ -4,6 +4,8 @@ import { Route, Routes } from "react-router-dom";
 
 import { Login } from "./Account/Login/Login";
 import { Signup } from "./Account/Signup/Signup";
+import { Commands } from "./Commands/Commands";
+import { Delivers } from "./Delivers/Delivers";
 
 import { HomePage } from "./HomePage/HomePage";
 import { ProductDetailPage } from "./ProductDetail/ProductDetailPage";
@@ -24,6 +26,10 @@ const Router = React.memo(()=> {
             <Route path="/categorie/:category" element={<CategoryPage />}  />
             
             <Route path="/product/:productId" element={<ProductDetailPage />}  />
+
+            <Route path="/commands" element={<Commands />}  />
+
+            <Route path="/delivers" element={<Delivers />}  />
 
             <Route path="/aceuil" element={<HomePage />}  />
 

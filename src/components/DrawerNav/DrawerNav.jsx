@@ -43,6 +43,7 @@ export const DrawerNav = ()=> {
                             
                             <Navigations onCloseDrawer={onClose} />
 
+                            <Button hidden={!isAuthenticated} variant='link' size='lg' fontSize='2xl' color='gray.600' as={Navigation} to='/commands' onClick={onClose}>Commands</Button>
 
                             <Button variant='link' size='lg' fontSize='2xl' color='gray.600' as={Navigation} to='/about' onClick={onClose}>A propos</Button>
                         </VStack>

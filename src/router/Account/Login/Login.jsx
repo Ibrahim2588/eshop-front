@@ -87,11 +87,12 @@ export const Login = ()=> {
         
 
         <Flex
-        minH={'100vh'}
+        // marginTop='-12'
+        minH={'80vh'}
         align={'center'}
         justify={'center'}
         bg='gray.50'>
-            <Stack spacing={4} mx={'auto'} maxW={'lg'} py={12} px={6}>
+            <Stack spacing={4} mx={'auto'} maxW={'lg'} py={8} px={6}>
                 <Stack align={'center'}>
                     <Heading fontSize={'4xl'}>Se connecter </Heading>
                 </Stack>
@@ -115,13 +116,13 @@ export const Login = ()=> {
                         
                         <Stack spacing={10}>
                         
-                        <Stack
+                        {/* <Stack
                             direction={{ base: 'column', sm: 'row' }}
                             align={'start'}
                             justify={'space-between'}>
                             <Checkbox>Remember me</Checkbox>
                             <Link color={'blue.400'}>Forgot password?</Link>
-                        </Stack>
+                        </Stack> */}
                         <Button
                             onClick={onSubmit}
                             isLoading={isLoading}
@@ -132,6 +133,8 @@ export const Login = ()=> {
                             }}>
                             Sign in
                         </Button>
+                        <Link color={'blue.400'} onClick={()=> navigate('/account/signup')}>Je n'ai pas de compte</Link>
+
                         </Stack>
                     </Stack>
                 </Box>

@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
-import { Box, Button, Center, Collapse, HStack, Image, List, ListItem, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, SimpleGrid, Skeleton, StackDivider, Text, useDisclosure, VStack } from '@chakra-ui/react'
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, Box, Button, Center, Collapse, HStack, Image, List, ListItem, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, SimpleGrid, Skeleton, StackDivider, Text, Textarea, useDisclosure, VStack } from '@chakra-ui/react'
 import { useNavigate, useParams } from "react-router-dom";
 import { useCreateOrderMutation, useGetProductQuery } from "../../api/store.api";
 import { AddIcon, ChevronDownIcon, ChevronUpIcon, RepeatIcon } from "@chakra-ui/icons";
@@ -71,6 +71,7 @@ export const ProductDetailPage = ()=> {
     }
     
     if(isSuccess){
+        console.log(product)
         return (
             <Box>
                 <SearchBar />
@@ -84,6 +85,7 @@ export const ProductDetailPage = ()=> {
                             <PurchaseAction product={product} />
                             <Description  description={product.description} />
                             <Characteristics characteristics={product.characteristics} />
+                            <Comments comments={product.comments} />
                         </VStack>
                     </SimpleGrid>
                 </Box>
@@ -268,3 +270,57 @@ const PurchaseAction = (({product})=> {
     }
 })
 
+const Comments = React.memo(({comments})=> {
+
+    const [comment, setComment] = useState()
+
+    const handleComment = useCallback((event)=> {
+        event.preventDefault()
+        setComment(event.target.value)
+    }, [])
+
+    return (
+        <Box width='full'>
+            <Box>
+                <Textarea placeholder="Commenter le produits ..." onChange={handleComment} value={comment}></Textarea>
+                <Button alignSelf='end' >Envoyer</Button>
+            </Box>
+            <Accordion allowToggle width='full'>
+                <AccordionItem>
+                    <AccordionButton>
+                        <Text>Commentaire</Text>
+                        <AccordionIcon />
+                    </AccordionButton>
+                    <AccordionPanel>
+                        <VStack spacing={4} width='full'>
+                            {comments.map((comment, index)=> {
+                                return (
+                                    <Comment index={index} comment={comment} />
+                                )
+                            })}
+                        </VStack>
+                    </AccordionPanel>
+                </AccordionItem>
+            </Accordion>
+        </Box>
+    )
+})
+
+const Comment = React.memo(({comment})=> {
+
+    const fullName = useMemo(()=> {
+        return `${comment.user.last_name} ${comment.user.first_name}`
+    }, [comment, ])
+
+    return (
+        <VStack padding={2} bgColor='yellow.50' shadow='md' width='full' rounded='lg' >
+            <HStack alignSelf='start' width='full'>
+                <Avatar name={fullName} size='sm' />
+                <Text>{fullName}</Text>
+            </HStack>
+            <Box width='full'>
+                <Text paddingLeft={4}>{comment.text}</Text>
+            </Box>
+        </VStack>
+    )
+})

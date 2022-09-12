@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 
 import { Box, Button, Container, Divider, Grid, Spinner } from "@chakra-ui/react";
@@ -15,6 +15,7 @@ import { setAllOrders } from "./store/orderSlice/order.slice";
 import { useGetAuthTokenMutation, useGetProfileQuery } from "./api/user.api";
 import { setAuthToken, setProfile } from "./store/userSlice/user.slice";
 import { Footer } from "./components/Footer/Footer";
+import { useGeolocated } from "react-geolocated";
 
 
 const orderGet = ()=> {
@@ -80,6 +81,14 @@ export const App = React.memo(()=> {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [location, setLocation] = useState(null)
+
+    const { 
+        coords,
+        getPosition,
+        isGeolocationAvailable,
+        isGeolocationEnabled
+    } = useGeolocated()
 
     const [cookies, setCookie, removeCookie] = useCookies([
         'authToken',
@@ -93,6 +102,21 @@ export const App = React.memo(()=> {
         }
     }, [cookies])
 
+    useEffect(()=> {
+        // getPosition( )
+        // console.log(nav.getCurrentPosition())
+        // navigator.permissions.query({name: 'geolocation'}).then(()=> {
+        //     const nav = navigator.geolocation
+        //     // setLocation(nav)
+        //     nav.getCurrentPosition((loc)=> {
+        //         // console.log(loc.coords)
+        //         setLocation(loc)
+        //     }, (error)=> {
+        //         // setLocation(error.message)
+        //     })
+        // })
+    }, [])
+
 
 
     orderGet()
@@ -103,6 +127,11 @@ export const App = React.memo(()=> {
         <>
             <Box bgColor='gray.50'>
                 <AppBar />
+                salut
+                {isGeolocationEnabled}
+                {console.log(coords)}
+        {/* {location? JSON.stringify(location.latitude) : 'null'}
+        {location? JSON.stringify(location.longitude) : 'null'} */}
                 <Router />
                 <Footer />
             </Box>

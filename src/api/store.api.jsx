@@ -6,7 +6,7 @@ import { fetchBaseQuery } from '@reduxjs/toolkit/query'
 export const storeApi = createApi({
     reducerPath: 'storeApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://192.168.190.30:8800/api/store/',
+        baseUrl: 'http://192.168.100.30:8800/api/store/',
         prepareHeaders: (headers, { getState, }) => {
             const authToken = getState().user.authToken
             if (authToken){
@@ -16,6 +16,7 @@ export const storeApi = createApi({
             return headers
         }
     }),
+    // refetchOnMountOrArgChange: true,
     endpoints: (builder) => ({
 
         getAllProducts: builder.query({
@@ -64,7 +65,7 @@ export const storeApi = createApi({
                 body: {
                     quantity: quantity,
                 }
-            })
+            }),
         }),
         
         deleteOrder: builder.mutation({
@@ -82,6 +83,24 @@ export const storeApi = createApi({
                 body: {
                     has_deliver: hasDeliver,
                 },
+            })
+        }),
+
+        getCommands: builder.query({
+            query: ()=> `command/`
+        }),
+
+        getDelivers: builder.query({
+            query: ()=> `command/all/`
+        }),
+
+        sellCommand: builder.mutation({
+            query: (code)=> ({
+                url: `sell_command/`,
+                method: 'POST',
+                body: {
+                    code: code,
+                }
             })
         }),
 
@@ -109,6 +128,9 @@ export const {
     useDeleteOrderMutation,
     useGetRecomendedProductsCategoryQuery,
     useCreateCommandMutation,
+    useGetCommandsQuery,
+    useGetDeliversQuery,
+    useSellCommandMutation,
     useGetBestProductsQuery,
 
 

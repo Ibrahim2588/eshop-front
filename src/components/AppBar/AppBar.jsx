@@ -18,6 +18,7 @@ import { useCookies } from "react-cookie";
 export const AppBar = React.memo(()=> {
     const navigate = useNavigate()
     const isAuthenticated = useSelector(state=> state.user.isAuthenticated)
+    const user = useSelector((state)=> state.user.profile)
 
     return (
         <Box bgColor='gray.700' px={1} pt={1} >
@@ -27,7 +28,10 @@ export const AppBar = React.memo(()=> {
                     <Image width={'100px'} alt="logo de l'entreprise" src='https://parceljs.org/logo.49e8bbc1.svg' />
                 </LinkBox>
                 <Spacer />
-                <OrdersDisplay />
+                <HStack>
+                    {user ? user.is_staff ? <Button size={'sm'} variant='outline' colorScheme='messenger' textTransform='uppercase' onClick={()=> navigate('/delivers') } >Commandes</Button> : null : null}
+                    <OrdersDisplay />
+                </HStack>
                 {!isAuthenticated? <Box>
                     <Button size={'sm'} variant='outline' colorScheme='messenger' textTransform='uppercase' onClick={()=> navigate('/account/login') } >Se connecter</Button>
                 </Box>: null}
