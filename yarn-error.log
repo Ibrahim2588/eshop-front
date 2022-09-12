@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /usr/bin/yarn add react-geolocated
+  /usr/bin/node /usr/bin/yarn add gh-page
 
 PATH: 
   /home/cobra/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
@@ -14,7 +14,17 @@ Platform:
   linux x64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/home/cobra/Bureau/E Shop/front/shop1/node_modules/@babel/highlight/node_modules/chalk/index.js'
+  Error: https://registry.yarnpkg.com/gh-page: Not found
+      at Request.params.callback [as _callback] (/usr/lib/node_modules/yarn/lib/cli.js:66145:18)
+      at Request.self.callback (/usr/lib/node_modules/yarn/lib/cli.js:140890:22)
+      at Request.emit (node:events:513:28)
+      at Request.<anonymous> (/usr/lib/node_modules/yarn/lib/cli.js:141862:10)
+      at Request.emit (node:events:513:28)
+      at IncomingMessage.<anonymous> (/usr/lib/node_modules/yarn/lib/cli.js:141784:12)
+      at Object.onceWrapper (node:events:627:28)
+      at IncomingMessage.emit (node:events:525:35)
+      at endReadableNT (node:internal/streams/readable:1358:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
 
 npm manifest: 
   {
@@ -22,11 +32,12 @@ npm manifest:
     "version": "1.0.0",
     "description": "eshop project",
     "source": "index.html",
-    "homepage": "https://Ibrahim2588.github.io/eshop-react.git",
+    "homepage": "https://Ibrahim2588.github.io/eshop-front",
     "scripts": {
       "start": "npx parcel",
       "build": "parcel build --public-url ./ ./index.html --dist-dir build",
-      "deploy": "gh-pages -d dist"
+      "predeploy" : "npm build",
+      "deploy": "gh-pages -d build"
     },
     "author": "",
     "license": "ISC",
@@ -41,6 +52,7 @@ npm manifest:
       "react": "^18.2.0",
       "react-cookie": "^4.1.1",
       "react-dom": "^18.2.0",
+      "react-geolocated": "^4.0.3",
       "react-icons": "^4.4.0",
       "react-redux": "^8.0.2",
       "react-router-dom": "6",
@@ -2852,6 +2864,11 @@ Lockfile:
       react-clientside-effect "^1.2.6"
       use-callback-ref "^1.3.0"
       use-sidecar "^1.1.2"
+  
+  react-geolocated@^4.0.3:
+    version "4.0.3"
+    resolved "https://registry.yarnpkg.com/react-geolocated/-/react-geolocated-4.0.3.tgz#d0656f7b7ff1578e8499c79828c063e729635cc2"
+    integrity sha512-p+BObdbWT4kINILkUZtqkWHippBsCLnQ+dyx9Bnd+m3086Xkw7VKWxcFavCd2pG6AM50jsiMJiDu0+DjelnT9g==
   
   react-icons@^4.4.0:
     version "4.4.0"
