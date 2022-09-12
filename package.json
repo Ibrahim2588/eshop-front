@@ -7,7 +7,7 @@
   "scripts": {
     "start": "npx parcel",
     "build": "parcel build --public-url ./ ./index.html --dist-dir build",
-    "predeploy": "npm build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "author": "",
