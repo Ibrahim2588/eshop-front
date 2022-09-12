@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "eshop project",
   "source": "index.html",
-  "homepage": "https://Ibrahim2588.github.io/eshop-front.git",
+  "homepage": "https://Ibrahim2588.github.io/eshop-front",
   "scripts": {
     "start": "npx parcel",
     "build": "parcel build --public-url ./ ./index.html --dist-dir build",
+    "predeploy" : "npm build",
     "deploy": "gh-pages -d build"
   },
   "author": "",
